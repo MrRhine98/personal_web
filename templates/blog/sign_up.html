@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.lzqcode.com" />
+    <meta name="robots" content="all" />
+    <title>login</title>
+    <link rel="stylesheet" href="./static/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./static/layui/css/layui.css" />
+    <link rel="stylesheet" href="./static/css/master.css" />
+    <link rel="stylesheet" href="./static/css/gloable.css" />
+    <link rel="stylesheet" href="./static/css/nprogress.css" />
+    <link rel="stylesheet" href="./static/css/blog.css" />
+    <link rel="stylesheet" href="./static/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="./static/css/lib.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/login.css">
+    <link rel="stylesheet" href="./static/css/road.css">
+</head>
+<body>
+    <div class="header">
+    </div>
+    <header class="gird-header">
+        <div class="header-fixed">
+            <div class="header-inner">
+                <a href="{% url 'blog:index' %}" class="header-logo" id="logo">Wu Rongshuai</a>
+                <nav class="nav" id="nav">
+                    <ul>
+                        <li><a href="article.html">BLOG</a></li>
+                        <li><a href="message.html">MESSAGE</a></li>
+						<li><a href="diary.html">DIARY</a></li>
+                        <li><a href="link.html">LINK</a></li>
+                    </ul>
+                </nav>
+                <a href="{% url 'blog:login' %}" class="blog-user">
+                    <!--<i class="fa fa-qq"></i>-->
+                    LOGIN
+                </a>
+
+                <a class="phone-menu">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-container">
+		<!-- 左内容 -->
+	    <div class="left-container">
+	        <div class="login">
+				<div class="login-content">
+					<h1>Welcome!</h1>
+		            <div class="layui-form">
+                        <!-- 用户名 -->
+                        <input class="verify" type="text" id="username" placeholder="username">
+                        <!-- 密码 -->
+                        <input class="verify" type="password" id="password" placeholder="password">
+                        <input class="verify" type="password" id="password_check" placeholder="re-enter">
+
+                        <div class="login_fields__submit">
+			        		<input class="layui-btn layui-btn-normal submit" type='button' id="btnSignup" value='Sign up'>
+			    		</div>
+
+                        <!-- 记住密码 lay-skin="primary"-->
+                        <!--<div class="remb-pass">
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="like1[write]" lay-skin="primary" title="记住密码" checked="">
+                            </div>
+                        </div>-->
+		            </div>
+
+			    
+			</div>
+
+	  	  <div class="success">
+	  	    <h2 class="i-green">认证成功</h2>
+	  	    <p>正在进入系统...</p>
+	  	  </div>
+
+	  	</div>
+
+	    <!-- 认证中 -->
+	  	<div class="authent">
+	  	  <img src="./static/image\login\puff.svg">
+	  	  <p>认证中...</p>
+	  	</div>
+	  </div>
+
+	  <!-- 右内容 -->
+	  <div class="right-container">
+	    <!--流星-->
+	    <div class="liuxing liuxing1 liuxingFla"></div>
+	    <div class="liuxing liuxing2 liuxingFla2"></div>
+	    <div class="liuxing liuxing3 liuxingFla3"></div>
+	    <div class="liuxing liuxing4 liuxingFla4"></div>
+
+
+	    <img src="./static/image\login_bg_1.png" alt="">
+	  </div>
+	</div>
+
+
+	<img class="footer_bg" src="./static/image\footer_bg.png" alt="">
+    <!-- layui -->
+    <!--<script type="text/javascript" src="./static/lib\layui\layui.all.js"></script>-->
+    <script src="./static/js/jquery.min.js"></script>
+    <script src="./static/js/jquery-ui.min.js"></script>
+    <script src="./static/layui/layui.js"></script>
+    <script src="./static/js/yss/gloable.js"></script>
+    <script src="./static/js/plugins/nprogress.js"></script>
+    <script>NProgress.start();</script>
+ 	<script src="./static/js/yss/article.js"></script>
+    <script> 
+        window.onload = function () {
+            NProgress.done();
+        };
+    </script>
+    <script>
+        $(function () {
+            $('#btnSignup').click(function () {
+                username = $('#username').val();
+                password = $('#password').val();
+                password_check = $('#password_check').val();
+                $.ajax({
+                    'url': '/sign_up_check',
+                    'type': 'post',
+                    'data': {'username': username, 'password': password, 'password_check': password_check},
+                    'dataType': 'json',
+                    success: function(data) {
+                        if (data.res == 1){
+                            alert("Success")
+                            window.location.href = "/";
+                        }
+                        else if (data.res == 2){
+                            alert("The length of password should be between 4 and 20 or there are invalid characters in your password")
+                        }
+                        else if (data.res == 3){
+                            alert("The passwords do not match, please re-enter!")
+                        }
+                        else if (data.res == 4){
+                            alert("The username has been taken")
+                        }
+                        else if (data.res == 5){
+                            alert("The length of username should be between 4 and 20 or there are invalid characters in your username")
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

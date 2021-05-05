@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style type = "text/css" media = "all">
+         body {
+            background-color: linen;
+         }
+      </style>
+
+   </head> 
+
+   <body>
+      <div>
+         <h1>Sorry, I am trying my best to develop this page.^v^</h1>
+         <hr />
+         <div>
+            user<input type="text" id="username1" placeholder="username">
+            pwd<input type="password" id="password1" placeholder="password">
+            <input type='button' id="btnLsogin" value='Sign in'>
+            <div id="errmsg"></div>
+         </div>
+      </div>
+   </body>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+        $(function () {
+            $('#btnLsogin').click(function () {
+                $.ajax({
+                    url: '/login_check',
+                    type: 'POST',
+                    data: {'username': 'rhine', 'password': '123'},
+                    dataType: 'json',
+                    success: function(data) {
+                        alert(1);
+                    }
+                })
+            })
+        })
+      </script>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>articles</title>
+</head>
+<body>
+    <h1> Articles </h1>
+    <ul>
+    {% for a in articles %}
+        <li>
+            <a href="{% url 'blog:article_read' a.id %}">{{a.atitle}}</a>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
